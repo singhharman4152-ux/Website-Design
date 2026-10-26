@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- 1. Home Page -->
+  <url>
+    <loc>https://geteduearn.com/</loc>
+    <priority>1.00</priority>
+  </url>
+
+  <!-- 2. Products (Course) -->
+  <url>
+    <loc>https://geteduearn.com/products.html</loc>
+    <priority>0.90</priority>
+  </url>
+
+  <!-- 3. About Us -->
+  <url>
+    <loc>https://geteduearn.com/about.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- 4. Live Charts -->
+  <url>
+    <loc>https://geteduearn.com/charts.html</loc>
+    <priority>0.80</priority>
+  </url>
+
+  <!-- 5. Career -->
+  <url>
+    <loc>https://geteduearn.com/career.html</loc>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- 6. Login / Signup -->
+  <url>
+    <loc>https://geteduearn.com/login.html</loc>
+    <priority>0.60</priority>
+  </url>
+  <url>
+    <loc>https://geteduearn.com/signup.html</loc>
+    <priority>0.60</priority>
+  </url>
+</urlset>

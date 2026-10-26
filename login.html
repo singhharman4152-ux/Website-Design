@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Login - Geteduearn</title>
+  <!-- WEBSITE LOGO (FAVICON) -->
+<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- 1. FORCE CENTER ALIGNMENT --- */
+        body { 
+            background: #f4f6f9; 
+            font-family: 'Montserrat', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;              /* Flexbox Layout */
+            justify-content: center;    /* Center Horizontally (Left/Right) */
+            align-items: center;        /* Center Vertically (Top/Bottom) */
+            min-height: 100vh;          /* Force Full Screen Height */
+            width: 100%;
+        }
+
+        /* --- 2. CAPTCHA STYLING --- */
+        .login-captcha-wrapper {
+            display: flex;
+            align-items: stretch;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+        #login-captcha-display {
+            flex: 1;
+            background-image: url('https://img.freepik.com/free-photo/white-paper-texture_1194-5998.jpg');
+            background-size: cover;
+            border: 1px solid #ccc;
+            font-family: 'Courier New', monospace;
+            font-size: 24px;
+            font-weight: bold;
+            letter-spacing: 5px;
+            color: #333;
+            text-decoration: line-through;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 5px;
+            user-select: none;
+            height: 45px;
+        }
+        .refresh-btn {
+            background: white;
+            border: 1px solid #002244;
+            color: #002244;
+            padding: 0 15px;
+            font-size: 18px;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .refresh-btn:hover {
+            background: #002244;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+
+    <a href="index.html" class="btn-home-fixed"><i class="fas fa-arrow-left"></i> Home</a>
+
+    <!-- MAIN LOGIN CARD -->
+    <div class="auth-card" style="width:100%; max-width:400px; background:white; padding:40px; border-radius:10px; box-shadow:0 10px 30px rgba(0,0,0,0.1); text-align:center;">
+        <img src="logo.png" alt="Logo" style="height:60px; margin-bottom:20px;">
+        <h2 style="color:#002244; margin-bottom:20px;">Student Login</h2>
+        
+        <div class="input-group" style="text-align:left; margin-bottom:15px;">
+            <label style="font-weight:600; font-size:14px; display:block; margin-bottom:5px;">Registered Mobile Number</label>
+            <input type="number" id="login-user" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px;">
+        </div>
+
+        <div class="input-group" style="text-align:left; margin-bottom:15px;">
+            <label style="font-weight:600; font-size:14px; display:block; margin-bottom:5px;">Password</label>
+            <input type="password" id="login-pass" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px;">
+        </div>
+
+        <!-- CAPTCHA SECTION -->
+        <div class="login-captcha-wrapper">
+            <div id="login-captcha-display">Loading...</div>
+            <button type="button" onclick="generateLoginCaptcha()" class="refresh-btn"><i class="fas fa-sync-alt"></i></button>
+        </div>
+
+        <div class="input-group" style="text-align:left; margin-bottom:15px;">
+            <input type="text" id="login-captcha-input" placeholder="Enter text shown above" style="width:100%; padding:10px; border:1px solid #ddd; border-radius:5px;">
+        </div>
+
+        <!-- LOGIN BUTTON -->
+        <button class="btn-full" onclick="performLogin()" style="background:#002244; color:white; width:100%; padding:12px; border:none; border-radius:5px; font-weight:bold; cursor:pointer;">Login</button>
+
+        <!-- FOOTER LINKS -->
+        <div style="margin-top:15px; display:flex; justify-content:space-between; font-size:13px;">
+            <a href="forgot.html" style="color:#666;">Forgot Password?</a>
+            <a href="signup.html" style="color:#ff9900; font-weight:bold;">Create ID</a>
+        </div>
+    </div>
+
+    <!-- 1. INSTANT CAPTCHA SCRIPT -->
+    <script>
+        function generateLoginCaptcha() {
+            let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let captcha = "";
+            for (let i = 0; i < 6; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            
+            let display = document.getElementById("login-captcha-display");
+            if(display) {
+                display.innerText = captcha;
+            }
+        }
+        
+        // Run immediately when page opens
+        window.onload = generateLoginCaptcha;
+    </script>
+
+    <!-- 2. MAIN SYSTEM SCRIPT -->
+    <script type="module" src="script.js"></script>
+<!-- SECURITY SCRIPT: Disable Right Click & Inspect -->
+<script>
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { // F12
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source)
+            return false;
+        }
+    };
+</script>
+</body>
+</html>

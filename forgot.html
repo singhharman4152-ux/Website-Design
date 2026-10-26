@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-Reset Password - Geteduearn</title>
+    <!-- WEBSITE LOGO (FAVICON) -->
+<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { background: #f0f2f5; display: flex; justify-content: center; align-items: center; height: 100vh; font-family: 'Montserrat', sans-serif; }
+        .card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 40px rgba(0,0,0,0.1); max-width: 420px; text-align: center; width: 90%; position: relative; overflow: hidden; }
+        .security-strip { position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, #ff9900, #002244); }
+        h2 { color: #002244; margin-bottom: 5px; font-size: 22px; }
+        p { color: #666; font-size: 13px; margin-bottom: 25px; line-height: 1.5; }
+        .input-group { text-align: left; margin-bottom: 15px; }
+        .input-group label { font-size: 11px; font-weight: 700; color: #002244; text-transform: uppercase; letter-spacing: 0.5px; display: block; margin-bottom: 5px; }
+        .input-group input { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; font-size: 14px; background: #f9fbfd; transition: 0.3s; }
+        .btn-verify { width: 100%; padding: 14px; background: #002244; color: white; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; transition: 0.3s; margin-top: 10px; font-size: 14px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+        .btn-verify:hover { background: #004488; transform: translateY(-2px); }
+        .back-link { display: block; margin-top: 20px; color: #888; font-size: 12px; text-decoration: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="card">
+        <div class="security-strip"></div>
+        <i class="fas fa-robot" style="font-size: 40px; color: #ff9900; margin-bottom: 15px;"></i>
+
+        <h2>Automatic Password Reset</h2>
+        <p>System will verify your Reg No and update your password instantly.</p>
+        
+        <div id="recovery-form">
+            <div class="input-group">
+                <label>Registered Mobile Number</label>
+                <input type="number" id="reset-mobile" placeholder="Ex: 980XXXXX75">
+            </div>
+            
+            <div class="input-group">
+                <label>Registration Number (RegNo)</label>
+                <input type="text" id="reset-regno" placeholder="Ex: GTE-2025-XXXX">
+            </div>
+
+            <div class="input-group">
+                <label>Create New Password</label>
+                <input type="text" id="reset-new-pass" placeholder="Minimum 6 characters">
+            </div>
+            
+            <button class="btn-verify" id="reset-btn" onclick="autoResetPassword()">
+                <i class="fas fa-sync-alt"></i> Update Password
+            </button>
+        </div>
+
+        <a href="login.html" class="back-link">Back to Login</a>
+    </div>
+
+    <!-- Firebase System -->
+    <script type="module" src="script.js"></script>
+<!-- SECURITY SCRIPT: Disable Right Click & Inspect -->
+<script>
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { // F12
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source)
+            return false;
+        }
+    };
+</script>
+</body>
+</html>

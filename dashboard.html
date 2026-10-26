@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard - Geteduearn</title>
+    <!-- WEBSITE LOGO (FAVICON) -->
+<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    
+    <style>
+        body { background: #f0f2f5; font-family: 'Montserrat', sans-serif; }
+        .dashboard-container { display: flex; max-width: 1400px; margin: 30px auto; gap: 20px; padding: 0 20px; height: 80vh; }
+        
+        /* SIDEBAR LIST */
+        .video-list { flex: 1; background: white; padding: 0; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); overflow-y: auto; display: flex; flex-direction: column; }
+        .list-header { padding: 20px; color: white; border-radius: 10px 10px 0 0; transition: 0.3s; }
+        .list-header h3 { margin: 0; font-size: 18px; }
+        .list-header small { color: rgba(255,255,255,0.8); font-weight: bold; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+
+        /* VIDEO ITEMS BASE */
+        .video-item { padding: 15px 20px; border-bottom: 1px solid #eee; cursor: pointer; display: flex; align-items: center; gap: 12px; transition: 0.2s; font-size: 13px; font-weight: 600; color: #444; }
+        .video-item i { width: 20px; text-align: center; transition: 0.2s; }
+
+        /* --- THEME 1: TRADING (ORANGE) --- */
+        .video-item.trading-theme:hover, .video-item.trading-theme.active {
+            background: #fdf3e0; color: #ff9900; border-left: 4px solid #ff9900;
+        }
+        .video-item.trading-theme i { color: #002244; }
+        .video-item.trading-theme:hover i, .video-item.trading-theme.active i { color: #ff9900; }
+
+        /* --- THEME 2: INVESTMENT (NAVY BLUE) --- */
+        .video-item.invest-theme:hover, .video-item.invest-theme.active {
+            background: #e3f2fd; color: #002244; border-left: 4px solid #002244;
+        }
+        .video-item.invest-theme i { color: #888; }
+        .video-item.invest-theme:hover i, .video-item.invest-theme.active i { color: #002244; }
+
+        /* MAIN PLAYER */
+        .main-player { flex: 3; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); display: flex; flex-direction: column; }
+        .video-frame { width: 100%; height: 100%; min-height: 500px; background: #000; border-radius: 8px; margin-bottom: 20px; }
+        h2 { color: #002244; margin-bottom: 10px; font-size: 22px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; }
+        .desc { color: #666; font-size: 14px; line-height: 1.6; background: #f9f9f9; padding: 15px; border-radius: 5px; border-left: 4px solid #002244; }
+
+        .dash-header { background: white; padding: 15px 5%; display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #ddd; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        
+        @media (max-width: 900px) { .dashboard-container { flex-direction: column-reverse; height: auto; } .video-frame { min-height: 300px; } }
+    </style>
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="dash-header">
+        <!-- Left Side: Home Button + Logo -->
+        <div style="display:flex; align-items:center; gap:15px;">
+            
+            <!-- UPDATED HOME BUTTON (Brand Orange) -->
+            <a href="index.html" style="background: linear-gradient(135deg, #ff9900, #ff5e00); color:white; padding:8px 20px; border-radius:50px; text-decoration:none; font-weight:800; font-size:11px; display:flex; align-items:center; gap:6px; box-shadow: 0 4px 10px rgba(255, 109, 0, 0.3); text-transform: uppercase; letter-spacing: 0.5px;">
+                <i class="fas fa-arrow-left"></i> Home
+            </a>
+
+            <!-- LOGO & NAME -->
+            <img src="logo.png" style="height:50px; margin-left: 5px;">
+            <span style="font-size:18px; font-weight:800; color:#002244;">GETEDUEARN</span>
+        </div>
+
+        <!-- Right Side: Student Name + Logout -->
+        <div style="display:flex; align-items:center; gap:20px;">
+            <span id="student-name-display" style="font-weight:700; color:#ff9900; font-size:15px;">Welcome Student</span>
+            <a href="#" onclick="logout()" style="color:#d32f2f; font-weight:bold; text-decoration:none; display:flex; align-items:center; gap:5px; font-size:13px;">
+                Logout <i class="fas fa-sign-out-alt"></i>
+            </a>
+        </div>
+    </header>
+
+    <!-- DASHBOARD CONTENT -->
+    <div class="dashboard-container">
+        
+        <!-- SIDEBAR: LIST OF VIDEOS -->
+        <div class="video-list">
+            <div class="list-header" id="sidebar-header">
+                <h3 id="course-header-title">Loading...</h3>
+                <small id="course-header-subtitle">Please wait</small>
+            </div>
+            
+            <div id="playlist-container">
+                <!-- Javascript will load items here -->
+            </div>
+        </div>
+
+        <!-- MAIN PLAYER AREA -->
+        <div class="main-player">
+            <h2 id="video-title">Select a video to start learning</h2>
+            <iframe id="video-screen" class="video-frame" src="" frameborder="0" allowfullscreen></iframe>
+            <p class="desc">
+                <strong><i class="fas fa-info-circle"></i> Note:</strong> 
+                Please watch the videos in sequence. Make notes for better understanding.
+            </p>
+        </div>
+    </div>
+
+    <!-- MAIN SYSTEM SCRIPT -->
+    <script type="module" src="script.js"></script>
+
+    <!-- DYNAMIC DASHBOARD LOGIC -->
+    <script>
+        // ==========================================
+        // 1. TRADING COURSE DATA (Orange Theme)
+        // ==========================================
+        const tradingVideos = [
+            { title: "1. Introduction to Stock Market", url: "INSERT_LINK_HERE" },
+            { title: "2. Market Structure of Trading", url: "INSERT_LINK_HERE" },
+            { title: "3. Technical Analysis & Price Action", url: "INSERT_LINK_HERE" },
+            { title: "4. Trend Line Trading", url: "INSERT_LINK_HERE" },
+            { title: "5. Support and Resistance", url: "INSERT_LINK_HERE" },
+            { title: "6. Candlestick Patterns (Single)", url: "INSERT_LINK_HERE" },
+            { title: "7. Candlestick Patterns (Double)", url: "INSERT_LINK_HERE" },
+            { title: "8. Candlestick Patterns (Triple)", url: "INSERT_LINK_HERE" },
+            { title: "9. Chart Pattern Continuation", url: "INSERT_LINK_HERE" },
+            { title: "10. Chart Pattern Reversal", url: "INSERT_LINK_HERE" },
+            { title: "11. Chart Pattern Bilateral/Neutral", url: "INSERT_LINK_HERE" },
+            { title: "12. Fibonacci Retracement", url: "INSERT_LINK_HERE" },
+            { title: "13. GAP Trading", url: "INSERT_LINK_HERE" },
+            { title: "14. Indicators", url: "INSERT_LINK_HERE" },
+            { title: "15. Trading Psychology", url: "INSERT_LINK_HERE" }
+        ];
+
+        // ==========================================
+        // 2. INVESTMENT COURSE DATA (Blue Theme)
+        // ==========================================
+        const investmentVideos = [
+            { title: "1. Fundamental Analysis", url: "INSERT_LINK_HERE" }, 
+            { title: "2. IPO in Details", url: "INSERT_LINK_HERE" },
+            { title: "3. Mutual Fund Investment", url: "INSERT_LINK_HERE" },
+            { title: "4. Exchange-Traded Fund (ETF)", url: "INSERT_LINK_HERE" },
+            { title: "5. Bond Investment", url: "INSERT_LINK_HERE" },
+            { title: "6. Investing in Real Estate", url: "INSERT_LINK_HERE" }
+        ];
+
+        // ==========================================
+        // 3. LOGIC TO LOAD THE CORRECT COURSE
+        // ==========================================
+        
+        window.onload = function() {
+            // Check which plan the user selected
+            let userPlan = sessionStorage.getItem('selectedPlan') || 'trading';
+            loadDashboardContent(userPlan);
+        };
+
+        function loadDashboardContent(plan) {
+            const playlistContainer = document.getElementById('playlist-container');
+            const headerTitle = document.getElementById('course-header-title');
+            const headerSubtitle = document.getElementById('course-header-subtitle');
+            const sidebarHeader = document.getElementById('sidebar-header');
+            
+            let contentArray = [];
+            let themeClass = '';
+            
+            // CLEAR EXISTING LIST
+            playlistContainer.innerHTML = '';
+
+            if (plan === 'investment') {
+                // --- INVESTMENT THEME ---
+                contentArray = investmentVideos;
+                headerTitle.innerText = "Investment Program";
+                headerSubtitle.innerText = "Wealth Building & Assets";
+                sidebarHeader.style.background = "#002244"; // Navy Blue Header
+                themeClass = 'invest-theme'; // Use Blue Highlight CSS
+            } else {
+                // --- TRADING THEME ---
+                contentArray = tradingVideos;
+                headerTitle.innerText = "Trading Masterclass";
+                headerSubtitle.innerText = "Basic to Advance";
+                sidebarHeader.style.background = "#ff9900"; // Orange Header
+                themeClass = 'trading-theme'; // Use Orange Highlight CSS
+            }
+
+            // GENERATE THE LIST HTML
+            contentArray.forEach((video, index) => {
+                let icon = 'fa-play-circle';
+                let clickAction = `playVideo(${index}, '${plan}')`;
+
+                let html = `
+                    <div class="video-item ${themeClass}" onclick="${clickAction}">
+                        <i class="fas ${icon}"></i> 
+                        ${video.title}
+                    </div>
+                `;
+                playlistContainer.innerHTML += html;
+            });
+
+            // Load the first video automatically
+            if(contentArray.length > 0) {
+                playVideo(0, plan);
+            }
+        }
+
+        // ==========================================
+        // 4. VIDEO PLAYER LOGIC
+        // ==========================================
+        function playVideo(index, plan) {
+            let videoData = (plan === 'investment') ? investmentVideos[index] : tradingVideos[index];
+            
+            document.getElementById('video-title').innerText = videoData.title;
+            
+            if(videoData.url === "INSERT_LINK_HERE") {
+                 document.getElementById('video-screen').src = "";
+            } else {
+                 document.getElementById('video-screen').src = videoData.url;
+            }
+
+            // Highlight the active item
+            let items = document.querySelectorAll('.video-item');
+            items.forEach(item => item.classList.remove('active'));
+            if(items[index]) items[index].classList.add('active');
+        }
+
+        // Logout function
+        window.logout = function() {
+            sessionStorage.clear();
+            window.location.href = "index.html";
+        }
+    </script>
+<!-- SECURITY SCRIPT: Disable Right Click & Inspect -->
+<script>
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { // F12
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source)
+            return false;
+        }
+    };
+</script>
+</body>
+</html>

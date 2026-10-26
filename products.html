@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Products - Geteduearn</title>
+   <!-- WEBSITE LOGO (FAVICON) -->
+<link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        /* --- CUSTOM STYLES FOR THE INVESTMENT CARD --- */
+        
+        /* 1. Navy Blue Glow Button */
+        .btn-navy-glow {
+            background: linear-gradient(135deg, #002244, #001133); /* Dark Navy Gradient */
+            color: white;
+            padding: 14px 35px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 4px 15px rgba(0, 34, 68, 0.4); /* Blue Shadow */
+            text-transform: uppercase;
+            border: none;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-block;
+            text-decoration: none;
+        }
+
+        .btn-navy-glow:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0, 34, 68, 0.6);
+            color: white;
+        }
+
+        /* 2. Card Layout Adjustments */
+        .courses-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 40px; /* Space between the two cards */
+            padding-bottom: 50px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- TOP BAR -->
+    <div class="top-bar">
+        <div class="top-bar-content">
+            <div class="contact-info">
+                <a href="mailto:support@geteduearn.com" style="color: #ddd; text-decoration: none; margin-right: 20px;">
+                    <i class="fas fa-envelope" style="color: #ff9900; margin-right: 5px;"></i> support@geteduearn.com
+                </a>
+                <a href="tel:+918264936772" style="color: #ddd; text-decoration: none;">
+                    <i class="fas fa-phone-alt" style="color: #ff9900; margin-right: 5px;"></i>+918264936772
+                </a>
+            </div>
+            <div class="social-icons">
+                <span>Follow us:</span>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-youtube"></i></a>
+                <a href="#"><i class="fab fa-telegram-plane"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- HEADER -->
+    <header>
+        <div class="navbar">
+            <div class="logo-container">
+                <img src="logo.png" alt="Geteduearn Logo" class="main-logo">
+                <div class="logo-text-group">
+                    <span class="brand-name">GETEDUEARN</span>
+                    <span class="brand-tagline">TRAINING INSTITUTE</span>
+                </div>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about.html">About Us</a></li>
+                <li><a href="products.html" class="active">Products</a></li>
+                <li><a href="charts.html">Live Charts</a></li>
+                <li><a href="dashboard.html">Dashboard</a></li>
+                <li><a href="career.html">Career</a></li>
+                <li><a href="login.html">Login</a></li>
+            </ul>
+            <div class="header-right">
+                <a href="signup.html" class="btn-primary-glow">Join Academy</a>
+            </div>
+        </div>
+    </header>
+
+   <!-- COURSES SECTION -->
+    <section class="courses-section">
+        <div class="section-header">
+            <h2>Our Premium Programs</h2>
+            <p>Choose the path that fits your financial goals</p>
+        </div>
+
+        <div class="courses-container">
+            
+            <!-- === LEFT CARD: TRADING (Orange Theme) === -->
+            <div class="course-card featured-card">
+                <div class="tag">Recommended</div>
+                <div class="card-top color-3"> 
+                    <!-- Chart Icon -->
+                    <i class="fas fa-chart-line fa-5x"></i>
+                </div>
+                <div class="card-body">
+                    <h3>Basic to Advance Trading</h3>
+                    <p class="course-desc">Complete A-Z Training: From Zero to Professional Trader.</p>
+                    
+                    <!-- Features Grid -->
+                    <div class="feature-grid">
+                        <div class="feature-item">
+                            <div class="f-icon-box"><i class="fas fa-video"></i></div>
+                            <div class="f-text"><h4>Live Zoom Classes</h4><span>Weekly Doubt Clearing</span></div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="f-icon-box"><i class="fas fa-chart-line"></i></div>
+                            <div class="f-text"><h4>Pro Live Charts</h4><span>Analyze on our Platform</span></div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="f-icon-box"><i class="fas fa-newspaper"></i></div>
+                            <div class="f-text"><h4>Global News Feed</h4><span>Real-time Economic Data</span></div>
+                        </div>
+                        <div class="feature-item">
+                            <div class="f-icon-box"><i class="fas fa-layer-group"></i></div>
+                            <div class="f-text"><h4>Pro Indicators</h4><span>Institutional Tools</span></div>
+                        </div>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+                    <ul class="features">
+                        <li><i class="fas fa-check"></i> <strong>Full Technical Analysis</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Future & Options Strategies</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Risk Management & Psychology</strong></li>
+                        <li><i class="fas fa-check"></i> <strong>Intraday & Swing Trading</strong></li>
+                    </ul>
+
+                    <div class="price-box main-price-box">
+                        <div class="price-stack">
+                            <span class="old-price">₹49,599</span>
+                            <span class="price big-price">₹39,999</span>
+                        </div>
+                        <!-- ORANGE BUTTON -->
+<a href="signup.html?plan=trading" class="btn-primary-glow" style="text-decoration:none;">Enroll Now</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- === RIGHT CARD: INVESTMENT (Navy Blue Theme) === -->
+            <div class="course-card invest-card">
+                <div class="tag" style="background-color: #00c853;">Wealth Building</div>
+                <div class="card-top invest-header"> 
+                    <!-- Sprout Icon -->
+                    <i class="fas fa-seedling fa-5x"></i>
+                </div>
+                <div class="card-body">
+                    <h3>Investment Premium Program</h3>
+                    <p class="course-desc">Master the art of long-term wealth creation and asset management.</p>
+                    
+                    <!-- Features Grid -->
+                    <div class="feature-grid">
+                        <!-- 1. Fundamental -->
+                        <div class="feature-item">
+                            <div class="f-icon-box" style="color:#002244;"><i class="fas fa-search-dollar"></i></div>
+                            <div class="f-text"><h4>Fundamental Analysis</h4><span>Read Balance Sheets</span></div>
+                        </div>
+                        <!-- 2. Portfolio -->
+                        <div class="feature-item">
+                            <div class="f-icon-box" style="color:#002244;"><i class="fas fa-chart-pie"></i></div>
+                            <div class="f-text"><h4>Portfolio Mgmt</h4><span>Asset Allocation</span></div>
+                        </div>
+                        <!-- 3. SIP -->
+                        <div class="feature-item">
+                            <div class="f-icon-box" style="color:#002244;"><i class="fas fa-piggy-bank"></i></div>
+                            <div class="f-text"><h4>SIP & Lumpsum</h4><span>Smart Saving Modes</span></div>
+                        </div>
+                        <!-- 4. Tax -->
+                        <div class="feature-item">
+                            <div class="f-icon-box" style="color:#002244;"><i class="fas fa-file-invoice-dollar"></i></div>
+                            <div class="f-text"><h4>Tax Planning</h4><span>Maximize Returns</span></div>
+                        </div>
+                    </div>
+
+                    <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+
+                    <!-- Syllabus List -->
+                    <ul class="features">
+                        <li><i class="fas fa-check-circle" style="color:#002244;"></i> <strong>Company Valuation (P/E, P/B, ROE)</strong></li>
+                        <li><i class="fas fa-check-circle" style="color:#002244;"></i> <strong>Mutual Funds & ETF Investing</strong></li>
+                        <li><i class="fas fa-check-circle" style="color:#002244;"></i> <strong>Gold & Sovereign Bonds (SGB)</strong></li>
+                        <li><i class="fas fa-check-circle" style="color:#002244;"></i> <strong>Real Estate Investment Trusts (REITs)</strong></li>
+                    </ul>
+
+                    <div class="price-box main-price-box">
+                        <div class="price-stack">
+                            <span class="old-price">₹35,000</span>
+                            <span class="price big-price" style="color:#002244;">₹18,999</span>
+                        </div>
+                        <!-- NAVY BLUE BUTTON -->
+                        <!-- NAVY BLUE BUTTON -->
+                  <a href="signup.html?plan=investment" class="btn-navy-glow">Enroll Now</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- 5. FOOTER -->
+    <footer>
+        <div class="footer-content">
+            
+            <!-- Column 1: About -->
+            <div class="footer-section">
+                <h3>Geteduearn</h3>
+                <p>
+                    We are a premier training institute dedicated to transforming beginners into professional traders using NISM-certified strategies and real-world market experience.
+                </p>
+            </div>
+
+            <!-- Column 2: Quick Links -->
+            <div class="footer-section">
+                <h3>Quick Links</h3>
+                <ul class="footer-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="about.html">About Us</a></li>
+                    <li><a href="products.html">Products</a></li>
+                    <li><a href="charts.html">Live Charts</a></li>
+                    <li><a href="login.html">Student Login</a></li>
+                    <li><a href="admin_export.html">Admin Login</a></li>
+                </ul>
+            </div>
+
+            <!-- Column 3: Contact Us -->
+            <div class="footer-section">
+                <h3>Contact Us</h3>
+                <ul class="contact-details">
+                    <!-- Address (Map Marker Icon) -->
+                    <li>
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span>
+                            Ground floor, SUSHMA Sales Centre, Adjoining Best Price, Chandigarh - Delhi NH - 22, Zirakpur, Punjab 140603
+                        </span>
+                    </li>
+                    
+                    <!-- Phone (Phone Icon) -->
+                    <li>
+                        <i class="fas fa-phone-alt"></i>
+                        <span>+918264936772</span>
+                    </li>
+
+                    <!-- Email (Envelope Icon) -->
+                    <li>
+                        <i class="fas fa-envelope"></i>
+                        <span>support@geteduearn.com</span>
+                    </li>
+                </ul>
+            </div>
+
+        </div>
+
+        <!-- Bottom Copyright Bar -->
+        <div class="bottom-bar">
+            <div class="bottom-bar-content">
+                
+                <div class="copyright-text">
+                    &copy; 2025 Geteduearn Training Institute. All Rights Reserved.
+                </div>
+
+                <div class="bottom-links">
+                    <a href="privacy.html">Privacy Policy</a>
+                    <a href="terms.html">Terms of Service</a>
+                    <a href="#">Cookie Policy</a>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+<!-- SECURITY SCRIPT: Disable Right Click & Inspect -->
+<script>
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { // F12
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source)
+            return false;
+        }
+    };
+</script>
+</body>
+</html>

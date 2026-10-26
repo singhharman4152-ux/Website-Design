@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Security - Geteduearn</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        body { font-family: 'Montserrat', sans-serif; background: #002244; margin: 0; padding: 0; height: 100vh; display: flex; justify-content: center; align-items: center; }
+        
+        /* LOGIN CARD */
+        .login-card {
+            background: white; padding: 40px; border-radius: 15px; width: 90%; max-width: 350px; text-align: center;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+        .login-card h2 { margin-top: 0; color: #002244; }
+        .input-box { width: 100%; padding: 12px; margin: 10px 0; border: 1px solid #ccc; border-radius: 5px; box-sizing: border-box; }
+        .btn { width: 100%; padding: 12px; background: #ff9900; color: white; border: none; font-weight: bold; border-radius: 5px; cursor: pointer; font-size: 16px; margin-top: 10px; }
+        .btn:hover { background: #e68a00; }
+
+        /* DASHBOARD CONTENT (HIDDEN INITIALLY) */
+        #admin-content { display: none; background: white; padding: 50px; border-radius: 10px; text-align: center; max-width: 600px; }
+        .btn-download { background: #008000; margin-top: 20px; display: flex; align-items: center; justify-content: center; gap: 10px; margin: 20px auto; }
+        .status { margin-top: 20px; color: #ff9900; font-weight: bold; font-size: 14px; min-height: 20px; }
+    </style>
+</head>
+<body>
+
+    <!-- 1. LOGIN SCREEN -->
+    <div id="login-screen" class="login-card">
+        <i class="fas fa-user-shield" style="font-size: 50px; color: #002244; margin-bottom: 20px;"></i>
+        <h2>Admin Access</h2>
+        <input type="text" id="admin-user" class="input-box" placeholder="Username">
+        <input type="password" id="admin-pass" class="input-box" placeholder="Password">
+        <button class="btn" onclick="checkAdmin()">Unlock</button>
+    </div>
+
+    <!-- 2. DATA DOWNLOAD SCREEN (Hidden) -->
+    <div id="admin-content">
+        <h2 style="color:#002244;">👨‍💼 Student Database</h2>
+        <p style="color:#666;">Click below to download the latest data from the Cloud.</p>
+        
+        <button class="btn btn-download" id="download-btn" onclick="exportData()">
+            <i class="fas fa-file-excel"></i> Download Excel / CSV
+        </button>
+
+        <div id="status" class="status"></div>
+        <br><br>
+        <a href="index.html" style="color:red; text-decoration:none; font-size:12px;">Logout & Exit</a>
+    </div>
+
+    <!-- SCRIPT FOR LOGIN -->
+    <script>
+        function checkAdmin() {
+            let u = document.getElementById("admin-user").value;
+            let p = document.getElementById("admin-pass").value;
+
+            // --- ADMIN CREDENTIALS ---
+            if(u === "Admin" && p === "Dubai@#7069") {
+                document.getElementById("login-screen").style.display = "none";
+                document.getElementById("admin-content").style.display = "block";
+                document.body.style.background = "#f4f6f9"; 
+            } else {
+                alert("❌ Access Denied! Wrong Credentials.");
+            }
+        }
+    </script>
+
+    <!-- FIREBASE SCRIPT FOR DOWNLOAD -->
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+        // CONFIGURATION
+        const firebaseConfig = {
+            apiKey: "AIzaSyA8EIPq2sYEp9s-nMDWx8U3LRpUAdEUTgM",
+            authDomain: "geteduearn-auth.firebaseapp.com",
+            projectId: "geteduearn-auth",
+            storageBucket: "geteduearn-auth.firebasestorage.app",
+            messagingSenderId: "852661704448",
+            appId: "1:852661704448:web:aef455df5f29deff49c5e5",
+            measurementId: "G-LF8H1PV31J"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+
+        // Make function global so button can use it
+        window.exportData = async function() {
+            let status = document.getElementById("status");
+            let btn = document.getElementById("download-btn");
+            
+            status.innerText = "⏳ Connecting to Database...";
+            status.style.color = "#ff9900";
+            btn.disabled = true;
+            btn.style.opacity = "0.7";
+            
+            try {
+                // Fetch Data
+                const querySnapshot = await getDocs(collection(db, "students"));
+                
+                if (querySnapshot.empty) {
+                    status.innerText = "⚠️ No students found in database.";
+                    btn.disabled = false;
+                    btn.style.opacity = "1";
+                    return;
+                }
+
+                status.innerText = "Processing " + querySnapshot.size + " students...";
+
+                // Prepare CSV Content (Added 'Plan' column)
+                let csvContent = "data:text/csv;charset=utf-8,";
+                csvContent += "Name,Mobile,Plan (Course),Password,UTR,RegNo,Passkey,Gender,Email,Country,Joined Date\n";
+
+                querySnapshot.forEach((doc) => {
+                    let data = doc.data();
+                    
+                    // Helper to clean text (remove commas to avoid breaking CSV)
+                    let clean = (text) => text ? text.toString().replace(/,/g, " ").trim() : "N/A";
+
+                    let row = [
+                        clean(data.fullName),
+                        clean(data.mobile),
+                        clean(data.plan || "Trading"), // Default to Trading if missing
+                        clean(data.password),
+                        clean(data.utr),
+                        clean(data.regNo),
+                        clean(data.classPasskey),
+                        clean(data.gender),
+                        clean(data.email),
+                        clean(data.country),
+                        clean(data.joined)
+                    ].join(",");
+                    csvContent += row + "\n";
+                });
+
+                // Trigger Download
+                const encodedUri = encodeURI(csvContent);
+                const link = document.createElement("a");
+                link.setAttribute("href", encodedUri);
+                link.setAttribute("download", "Geteduearn_Students_" + new Date().toISOString().slice(0,10) + ".csv");
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+
+                status.innerText = "✅ Download Complete!";
+                status.style.color = "green";
+
+            } catch (error) {
+                console.error("Export Error:", error);
+                status.innerText = "❌ Error: " + error.message;
+                status.style.color = "red";
+                alert("Database Error: " + error.message + "\n\nCheck your internet connection.");
+            } finally {
+                btn.disabled = false;
+                btn.style.opacity = "1";
+            }
+        }
+    </script>
+
+<!-- SECURITY SCRIPT: Disable Right Click & Inspect -->
+<script>
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { // F12
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source)
+            return false;
+        }
+    };
+</script>
+</body>
+</html>

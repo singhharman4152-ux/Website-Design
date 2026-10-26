@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verification Pending</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;800&display=swap" rel="stylesheet">
+    <style>
+        body { background: #fff3e0; display: flex; justify-content: center; align-items: center; height: 100vh; text-align: center; font-family: 'Montserrat', sans-serif; }
+        .card { background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); max-width: 500px; }
+        .icon { font-size: 60px; color: #ff9900; margin-bottom: 20px; }
+        .btn { background: #002244; color: white; padding: 12px 25px; text-decoration: none; border-radius: 5px; font-weight: bold; display: inline-block; margin-top: 20px; }
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+
+    <div class="card">
+        <i class="fas fa-clock icon"></i>
+        <h2 style="color:#002244;">Payment Verification Pending</h2>
+        <p style="margin-top:10px; color:#555; line-height:1.6;">
+            We have received your request. <br>
+            Please send your UTR screenshot on WhatsApp to activate your account.
+        </p>
+        <p style="margin-top:15px; font-weight:bold;">
+            Your account will be active within 30 minutes after verification.
+        </p>
+        
+        <a href="login.html" class="btn">Go to Login Page</a>
+    </div>
+
+<!-- SECURITY SCRIPT: Disable Right Click & Inspect -->
+<script>
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { // F12
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source)
+            return false;
+        }
+    };
+</script>
+
+</body>
+</html>

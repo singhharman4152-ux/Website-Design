@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join Academy - Registration</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+ <a href="index.html" class="btn-home-fixed"><i class="fas fa-arrow-left"></i> Home</a>    
+
+    <div class="register-container">
+        <div class="form-wrapper">
+            <!-- Header -->
+            <div class="form-header">
+                <h2>Join Academy</h2>
+            </div>
+
+            <!-- 1. SELECTED COURSE DISPLAY (Now Editable) -->
+            <div class="input-group">
+                <label>Selected Course</label>
+                <!-- Removed 'disabled' and added 'onchange' event -->
+                <select id="course-display" class="simple-input" onchange="updatePlan()" style="background-color: #fff; font-weight:bold; color:#002244; cursor: pointer;">
+                    <option value="trading">Basic to Advance Trading</option>
+                    <option value="investment">Investment Premium Program</option>
+                </select>
+            </div>
+
+            <!-- NAME ROW -->
+            <div class="row">
+                <div class="col">
+                    <label>First Name*</label>
+                    <div class="input-icon-wrap">
+                        <input type="text" id="fname" placeholder="First Name">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+                <div class="col">
+                    <label>Last Name*</label>
+                    <div class="input-icon-wrap">
+                        <input type="text" id="lname" placeholder="Last Name">
+                        <i class="fas fa-user"></i>
+                    </div>
+                </div>
+            </div>
+
+            <!-- GENDER -->
+            <div class="input-group">
+                <label style="display:inline-block; margin-right:15px;">Gender:</label>
+                <label class="radio-label"><input type="radio" name="gender" value="Male" checked> Male</label>
+                <label class="radio-label"><input type="radio" name="gender" value="Female"> Female</label>
+            </div>
+
+            <!-- DOB -->
+            <div class="input-group">
+                <label>DOB*</label>
+                <input type="date" id="dob" class="simple-input">
+            </div>
+
+            <!-- EMAIL -->
+            <div class="input-group">
+                <label>Email ID*</label>
+                <div class="input-icon-wrap">
+                    <input type="email" id="email" placeholder="Email ID">
+                    <i class="fas fa-envelope"></i>
+                </div>
+            </div>
+
+            <!-- MOBILE -->
+            <div class="input-group">
+                <label>Mobile Number*</label>
+                <div class="mobile-stack">
+                    <select id="country-code">
+                        <option value="+91">+91-INDIA</option>
+                        <option value="+1">+1-USA</option>
+                        <option value="+44">+44-UK</option>
+                        <option value="+1">+1-Canada</option>
+                        <option value="+971">+971-UAE</option>
+                    </select>
+                    <input type="number" id="mobile" placeholder="Phone Number">
+                </div>
+            </div>
+
+            <!-- COUNTRY -->
+            <div class="input-group">
+                <label>Country*</label>
+                <select id="country" class="simple-input">
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Canada">Canada</option>
+                    <option value="UAE">UAE</option>
+                </select>
+            </div>
+
+            <!-- PASSWORDS -->
+            <div class="input-group">
+                <label>Create Password*</label>
+                <input type="password" id="pass" class="simple-input" placeholder="Enter Your Password">
+            </div>
+            <div class="input-group">
+                <label>Confirm Password*</label>
+                <input type="password" id="confirm-pass" class="simple-input" placeholder="Confirm Password">
+            </div>
+
+            <!-- CAPTCHA SECTION -->
+            <div class="captcha-section">
+                <div id="captcha-display">Loading...</div> 
+                <button type="button" onclick="generateCaptcha()" class="refresh-btn"><i class="fas fa-sync-alt"></i></button>
+            </div>
+            <div class="input-group">
+                <input type="text" id="captcha-input" class="simple-input" placeholder="Enter the text shown in the image">
+            </div>
+
+            <!-- TERMS -->
+            <div class="terms-group">
+                <input type="checkbox" id="terms">
+                <label for="terms">
+                    I agree to the <a href="terms.html" target="_blank" style="color:#d32f2f; font-weight:bold;">Terms & Conditions</a>
+                </label>
+            </div>
+
+            <!-- BUTTON -->
+            <button class="join-btn" onclick="validateAndRegister()">Join Now</button>
+
+            <p style="text-align:center; margin-top:15px; font-size:13px;">
+                Already a member? <a href="login.html" style="color:#d32f2f; font-weight:bold;">Login Here</a>
+            </p>
+        </div>
+    </div>
+
+    <!-- HIDDEN SUCCESS MODAL (Shows Registration No) -->
+    <div id="reg-modal" class="modal-overlay">
+        <div class="modal-box">
+            <i class="fas fa-check-circle" style="font-size:60px; color:#00c853; margin-bottom:15px;"></i>
+            <h2 style="color:#002244;">Registration Successful!</h2>
+            <p style="color:#666; font-size:14px;">Please save your Registration Number:</p>
+            
+            <div class="reg-id-box">
+                <div class="reg-id-text" id="display-reg-no">GTE-0000</div>
+            </div>
+
+            <button class="modal-btn" onclick="goToPayment()">
+                Proceed to Payment <i class="fas fa-arrow-right"></i>
+            </button>
+        </div>
+    </div>
+
+    <!-- 1. INSTANT CAPTCHA SCRIPT -->
+    <script>
+        window.generateCaptcha = function() {
+            let chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+            let captcha = "";
+            for (let i = 0; i < 6; i++) {
+                captcha += chars.charAt(Math.floor(Math.random() * chars.length));
+            }
+            let display = document.getElementById("captcha-display");
+            if(display) {
+                display.innerText = captcha;
+            }
+        }
+        window.onload = generateCaptcha;
+    </script>
+
+    <!-- 2. UPDATED COURSE LOGIC (Fixes Dropdown Issue) -->
+    <script>
+        // Function run when dropdown is changed manually
+        function updatePlan() {
+            const dropdown = document.getElementById('course-display');
+            const selectedValue = dropdown.value;
+            // Update session storage so Payment Page knows the new choice
+            sessionStorage.setItem('selectedPlan', selectedValue);
+        }
+
+        window.addEventListener('DOMContentLoaded', () => {
+            const params = new URLSearchParams(window.location.search);
+            const plan = params.get('plan');
+            const dropdown = document.getElementById('course-display');
+            
+            let selectedPlan = 'trading'; 
+            
+            if (plan) {
+                selectedPlan = plan;
+                sessionStorage.setItem('selectedPlan', plan);
+            } else if (sessionStorage.getItem('selectedPlan')) {
+                selectedPlan = sessionStorage.getItem('selectedPlan');
+            } else {
+                sessionStorage.setItem('selectedPlan', 'trading');
+            }
+
+            if(dropdown) {
+                dropdown.value = selectedPlan;
+            }
+        });
+    </script>
+
+    <!-- 3. MAIN SYSTEM SCRIPT -->
+    <script type="module" src="script.js"></script>
+<!-- SECURITY SCRIPT: Disable Right Click & Inspect -->
+<script>
+    // 1. Disable Right Click
+    document.addEventListener('contextmenu', function(e) {
+        e.preventDefault();
+    });
+
+    // 2. Disable F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U
+    document.onkeydown = function(e) {
+        if (e.keyCode == 123) { // F12
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'I'.charCodeAt(0)) { // Ctrl+Shift+I
+            return false;
+        }
+        if (e.ctrlKey && e.shiftKey && e.keyCode == 'J'.charCodeAt(0)) { // Ctrl+Shift+J
+            return false;
+        }
+        if (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0)) { // Ctrl+U (View Source)
+            return false;
+        }
+    };
+</script>
+</body>
+</html>
